@@ -17,13 +17,15 @@ passport.use(
     }
   )
 );
-
+//update google code
 app.get(
   "/auth/google",
   passport.authenticate("google", {
     scope: ["profile", "email"]
   })
 );
+
+app.get("/auth/google/callback", passport.authenticate("google"));
 // to get dynamic port Heroku
 const PORT = process.env.PORT || 5000;
 
