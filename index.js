@@ -1,31 +1,26 @@
 const express = require("express");
+const mongoose = require("mongoose");
+const cookieSession = require("cookie-session");
 const passport = require("passport");
-const GoogleStrategy = require("passport-google-oauth20").Strategy;
+require("./models/User");
+require("./services/passport.js");
+
+//import express f  rom "express";
 const keys = require("./config/keys");
-//import express from "express";
+mongoose.connect(keys.mongoURI);
+
 const app = express();
 
-passport.use(
-  new GoogleStrategy(
-    {
-      clientID: keys.googleClientID,
-      clientSecret: keys.googleClientSecret,
-      callbackURL: "/auth/google/callback"
-    },
-    () => {
-      console.log(accessToken);
-    }
-  )
-);
-//update google code
-app.get(
-  "/auth/google",
-  passport.authenticate("google", {
-    scope: ["profile", "email"]
+app.use(
+  cookieSession({
+    maxAge: 30 * 24 * 60 * 60 * 1000,
+    keys: [keys.cookieKey]
   })
 );
+app.use(passport.initialize());
+app.use(passport.session());
 
-app.get("/auth/google/callback", passport.authenticate("google"));
+require("./routes/authRoutes")(app);
 // to get dynamic port Heroku
 const PORT = process.env.PORT || 5000;
 
