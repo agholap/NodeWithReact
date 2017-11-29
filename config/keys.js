@@ -10,7 +10,8 @@ if (process.env.NODE_ENV === "production") {
     googleClientID:
     "477506738693-0hirpqqslo91a58ldro5rq4th9jfv63c.apps.googleusercontent.com",
   googleClientSecret: "1zoBMI1uO557dFQjQ6G6h6G5",
-  mongoURI: "mongodb://amol:welcome12!@@ds119306.mlab.com:19306/emily-prod",
+  //mongoURI: "mongodb://amol:welcome12!@@ds119306.mlab.com:19306/emily-prod",
+  mongoURI: "mongodb://amol:password@ds011268.mlab.com:11268/emaily1-dev",
   cookieKey: "2sadad13131akkkskkskks"
   };
   console.log(process.env);
